@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "oauth"
+require "tttrans"
+
+consumer = OAuth::Consumer.new(ENV["TexTra_API_KEY"], ENV["TexTra_API_SECRET"])
+token = OAuth::AccessToken.new(consumer)
+
+loop do
+  input = Readline.readline(" English: ", true)
+  next if input.eql?("")
+
+  break if input.eql?(":q")
+
+  puts("\033[32mJapanese: \033[1;32m#{TTTrans.translate(token, input)}\033[0m")
+  puts("-" * IO.console_size[1])
+end
