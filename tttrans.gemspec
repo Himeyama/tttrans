@@ -33,9 +33,9 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency "oauth", "~> 0.5.10"
-  spec.add_development_dependency "rubocop-rake", "~> 0.6.0"
   spec.add_development_dependency "rake", "~> 13.0.6"
   spec.add_development_dependency "rubocop", "~> 1.30.1"
+  spec.add_development_dependency "rubocop-rake", "~> 0.6.0"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
