@@ -28,8 +28,9 @@ gem 'TTTrans'
 
     $ bundle install
 
-### 環境変数設定
-環境変数を設定する必要があるため、`~/.tttconfig` などに環境変数を以下のように設定してください。
+### ログイン設定
+API を利用するにはユーザー ID や API キーなどを設定する必要があるため、
+`~/.tttconfig` に以下のように設定を書き込んでください。
 
 ```ini
 [textra]
@@ -61,8 +62,6 @@ $ bundle exec ttt
 
 リポジトリをチェックアウトした後、`bin/setup` を実行して依存関係をインストールします。
 また、`bin/console` を実行してインタラクティブなプロンプトを表示し、実験を行うこともできます。
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 このgemをローカルマシンにインストールするには、`bundle exec rake install` を実行します。新しいバージョンをリリースするには、`version.rb` のバージョン番号を更新してから `bundle exec rake release` を実行します。
 これによりそのバージョンの git タグが作成され、git コミットと作成されたタグがプッシュされ、
