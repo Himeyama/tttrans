@@ -1,5 +1,5 @@
 # TTTrans
-[![Ruby](https://github.com/Himeyama/tttrans/actions/workflows/main.yml/badge.svg)](https://github.com/Himeyama/tttrans/actions/workflows/main.yml)
+[![Ruby](https://github.com/Himeyama/tttrans/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/Himeyama/tttrans/actions/workflows/main.yml)
 [![Gem Version](https://badge.fury.io/rb/TTTrans.svg)](https://badge.fury.io/rb/TTTrans)
 
 この Gem は「みんなの自動翻訳＠TexTra®」に対し WebAPI を叩き、翻訳するアプリです。
