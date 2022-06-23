@@ -3,6 +3,7 @@
 require "readline"
 require "io/console/size"
 require "json"
+require "oauth"
 require_relative "tttrans/version"
 
 # TTTrans module
@@ -10,12 +11,30 @@ module TTTrans
   class Error < StandardError; end
   # Your code goes here...
 
-  def self.translate(token, text)
+  def self.token(api_key, api_secret)
+    consumer = OAuth::Consumer.new(api_key, api_secret)
+    OAuth::AccessToken.new(consumer)
+  end
+
+  def self.translate(
+    token,
+    api_key,
+    user_id,
+    text,
+    mode = :en2ja
+  )
+    case mode
+    when :en2ja
+      url = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/generalNT_en_ja/"
+    when :ja2en
+      url = "https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/generalNT_ja_en/"
+    end
+
     response = token.post(
-      ENV["TexTra_URI_EN_JA"], {
-        key: ENV["TexTra_API_KEY"],
+      url, {
+        key: api_key,
         type: "json",
-        name: ENV["TexTra_ID"],
+        name: user_id,
         text: text
       }
     )

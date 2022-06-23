@@ -9,8 +9,8 @@
 |機能|開発状況|
 |:--:|:--:|
 |英日翻訳|✅|
-|日英翻訳||
-|設定ファイルの読み込み||
+|日英翻訳|✅|
+|設定ファイルの読み込み|✅|
 |非対話モードによる翻訳||
 
 ## インストール
@@ -29,16 +29,14 @@ gem 'TTTrans'
     $ bundle install
 
 ### 環境変数設定
-環境変数を設定する必要があるため、`~/.bashrc` などに環境変数を以下のように設定してください。
+環境変数を設定する必要があるため、`~/.tttconfig` などに環境変数を以下のように設定してください。
 
-```bash
-export TexTra_URI_EN_JA=https://mt-auto-minhon-mlt.ucri.jgn-x.jp/api/mt/generalNT_en_ja/
-export TexTra_ID=【TexTra に登録した ID】
-export TexTra_API_KEY=【API key】
-export TexTra_API_SECRET=【API secret】
+```ini
+[textra]
+id=【TexTra に登録したユーザー ID】
+api_key=【API key】
+api_secret=【API secret】
 ```
-
-詳しくは、https://www.hikari-dev.com/2022/06/22/TexTra-ruby/ を参照してください。
 
 ## 使用方法
 
@@ -55,7 +53,9 @@ $ bundle # 1 回だけ
 $ bundle exec ttt
 ```
 
-`:q` で対話を終了します。
+`:en2ja` で 英日翻訳モード、`:ja2en` で日英翻訳モードを切り替え可能です。
+
+`:q` または、`Ctrl` + `C` で対話を終了します。
 
 ## 開発について
 

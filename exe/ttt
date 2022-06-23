@@ -1,18 +1,77 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "oauth"
 require "tttrans"
+require "inifile"
 
-consumer = OAuth::Consumer.new(ENV["TexTra_API_KEY"], ENV["TexTra_API_SECRET"])
-token = OAuth::AccessToken.new(consumer)
+# 設定があるか確認
+def config_exists?(api_key, api_secret, user_id)
+  return true if [nil, ""].include?(api_key) \
+    || [nil, ""].include?(api_secret) \
+    || [nil, ""].include?(user_id)
+
+  false
+end
+
+# ~/.tttconfig から設定を読み込む
+inifile = "#{ENV["HOME"]}/.tttconfig"
+if File.exist?(inifile)
+  ini = IniFile.load(inifile)
+  api_key = ini["textra"]["api_key"]
+  api_secret = ini["textra"]["api_secret"]
+  user_id = ini["textra"]["id"]
+end
+
+# 環境変数が与えられた場合
+envs = %w[TexTra_API_KEY TexTra_API_SECRET TexTra_ID].map do |item|
+  ENV[item]
+end
+api_key = envs[0] unless envs[0] == ""
+api_secret = envs[1] unless envs[1] == ""
+user_id = envs[2] unless envs[2] == ""
+
+if config_exists?(api_key, api_secret, user_id)
+  warn.puts(
+    "\033[31mエラー: API のキーまたはユーザー ID の設定がされていません。" \
+    "~/.tttconfig に設定ファイルを作成してください。\033[0m"
+  )
+  exit(false)
+end
+
+token = TTTrans.token(api_key, api_secret)
+
+mode = :en2ja
+modes = {
+  en2ja: [" English: ", "Japanese: "],
+  ja2en: ["Japanese: ", " English: "]
+}
 
 loop do
-  input = Readline.readline(" English: ", true)
+  begin
+    input = Readline.readline(modes[mode][0], true)
+  rescue Interrupt
+    puts
+    exit(true)
+  end
+
+  if input.eql?(":en2ja")
+    puts("ℹ️ \033[36m英日翻訳に変更します\033[0m") if mode == :ja2en
+    mode = :en2ja
+    puts("-" * IO.console_size[1])
+    next
+  end
+
+  if input.eql?(":ja2en")
+    puts("ℹ️ \033[36m日英翻訳に変更します\033[0m") if mode == :en2ja
+    mode = :ja2en
+    puts("-" * IO.console_size[1])
+    next
+  end
+
   next if input.eql?("")
 
   break if input.eql?(":q")
 
-  puts("\033[32mJapanese: \033[1;32m#{TTTrans.translate(token, input)}\033[0m")
+  puts("\033[32m#{modes[mode][1]}\033[1;32m#{TTTrans.translate(token, api_key, user_id, input, mode)}\033[0m")
   puts("-" * IO.console_size[1])
 end
