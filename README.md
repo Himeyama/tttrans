@@ -1,7 +1,7 @@
 # TTTrans
 この Gem は「みんなの自動翻訳＠TexTra®」に対し WebAPI を叩き、翻訳するアプリです。
 
-
+![image](https://user-images.githubusercontent.com/39254183/175293482-2e432b0b-f52e-457c-bad1-e6e68d627fe1.png)
 
 |機能|開発状況|
 |:--:|:--:|
