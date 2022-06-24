@@ -31,7 +31,7 @@ api_secret = envs[1] unless envs[1] == ""
 user_id = envs[2] unless envs[2] == ""
 
 if config_exists?(api_key, api_secret, user_id)
-  warn.puts(
+  warn(
     "\033[31mエラー: API のキーまたはユーザー ID の設定がされていません。" \
     "~/.tttconfig に設定ファイルを作成してください。\033[0m"
   )
