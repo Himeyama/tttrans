@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    TTTrans (0.2.0)
+    TTTrans (0.2.2)
       inifile (~> 3.0.0)
       oauth (~> 0.5.10)
 

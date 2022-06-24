@@ -26,9 +26,10 @@ end
 envs = %w[TexTra_API_KEY TexTra_API_SECRET TexTra_ID].map do |item|
   ENV[item]
 end
-api_key = envs[0] unless envs[0] == ""
-api_secret = envs[1] unless envs[1] == ""
-user_id = envs[2] unless envs[2] == ""
+
+api_key = envs[0] unless [nil, ""].include?(envs[0])
+api_secret = envs[1] unless [nil, ""].include?(envs[1])
+user_id = envs[2] unless [nil, ""].include?(envs[2])
 
 if config_exists?(api_key, api_secret, user_id)
   warn(
