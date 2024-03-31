@@ -1,23 +1,43 @@
 PATH
   remote: .
   specs:
-    TTTrans (0.2.2)
+    tttrans (24.03.31)
       inifile (~> 3.0.0)
-      oauth (~> 0.5.10)
+      oauth2 (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    base64 (0.2.0)
+    faraday (2.9.0)
+      faraday-net_http (>= 2.0, < 3.2)
+    faraday-net_http (3.1.0)
+      net-http
+    hashie (5.0.0)
     inifile (3.0.0)
-    oauth (0.5.10)
-    parallel (1.22.1)
-    parser (3.1.2.0)
+    jwt (2.8.1)
+      base64
+    multi_xml (0.6.0)
+    net-http (0.4.1)
+      uri
+    oauth2 (2.0.9)
+      faraday (>= 0.17.3, < 3.0)
+      jwt (>= 1.0, < 3.0)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 4)
+      snaky_hash (~> 2.0)
+      version_gem (~> 1.1)
+    parallel (1.24.0)
+    parser (3.3.0.5)
       ast (~> 2.4.1)
+      racc
+    racc (1.7.3)
+    rack (3.0.10)
     rainbow (3.1.1)
     rake (13.0.6)
-    regexp_parser (2.5.0)
-    rexml (3.2.5)
+    regexp_parser (2.9.0)
+    rexml (3.2.6)
     rubocop (1.30.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
@@ -27,21 +47,26 @@ GEM
       rubocop-ast (>= 1.18.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.18.0)
-      parser (>= 3.1.1.0)
+    rubocop-ast (1.31.2)
+      parser (>= 3.3.0.4)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
-    ruby-progressbar (1.11.0)
-    unicode-display_width (2.1.0)
+    ruby-progressbar (1.13.0)
+    snaky_hash (2.0.1)
+      hashie
+      version_gem (~> 1.1, >= 1.1.1)
+    unicode-display_width (2.5.0)
+    uri (0.13.0)
+    version_gem (1.1.4)
 
 PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  TTTrans!
   rake (~> 13.0.6)
   rubocop (~> 1.30.1)
   rubocop-rake (~> 0.6.0)
+  tttrans!
 
 BUNDLED WITH
    2.3.7

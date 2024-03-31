@@ -4,6 +4,30 @@
 require "tttrans"
 require "inifile"
 
+@i18n_list = {
+  "en": {
+    "En": "  English: ",
+    "Ja": "Japanease: ",
+    "change_en_ja": "Change to English-Japanese translation",
+    "change_ja_en": "Change to Japanese-English translation",
+    "error_no_config": "Error: API key or user ID is not set\nCreate a configuration file in ~/.tttconfig"
+  },
+  "ja": {
+    "En": "  英語: ",
+    "Ja": "日本語: ",
+    "change_en_ja": "英日翻訳に変更します",
+    "change_ja_en": "日英翻訳に変更します",
+    "error_no_config": "エラー: API のキーまたはユーザー ID の設定がされていません\n~/.tttconfig に設定ファイルを作成してください"
+  }
+}
+
+@lang = :en
+@lang = :ja if ENV["LANG"].downcase =~ /ja/
+
+def i18n(tag)
+  @i18n_list[@lang][tag]
+end
+
 # 設定があるか確認
 def config_exists?(api_key, api_secret, user_id)
   return true if [nil, ""].include?(api_key) \
@@ -33,8 +57,7 @@ user_id = envs[2] unless [nil, ""].include?(envs[2])
 
 if config_exists?(api_key, api_secret, user_id)
   warn(
-    "\033[31mエラー: API のキーまたはユーザー ID の設定がされていません。" \
-    "~/.tttconfig に設定ファイルを作成してください。\033[0m"
+    "\033[31m#{i18n(:error_no_config)}\033[0m"
   )
   exit(false)
 end
@@ -43,8 +66,8 @@ token = TTTrans.token(api_key, api_secret)
 
 mode = :en2ja
 modes = {
-  en2ja: [" English: ", "Japanese: "],
-  ja2en: ["Japanese: ", " English: "]
+  en2ja: [i18n(:En), i18n(:Ja)],
+  ja2en: [i18n(:Ja), i18n(:En)]
 }
 
 loop do
@@ -56,14 +79,14 @@ loop do
   end
 
   if input.eql?(":en2ja")
-    puts("ℹ️ \033[36m英日翻訳に変更します\033[0m") if mode == :ja2en
+    puts("ℹ️ \033[36m#{i18n(:change_en_ja)}\033[0m") if mode == :ja2en
     mode = :en2ja
     puts("-" * IO.console_size[1])
     next
   end
 
   if input.eql?(":ja2en")
-    puts("ℹ️ \033[36m日英翻訳に変更します\033[0m") if mode == :en2ja
+    puts("ℹ️ \033[36m#{i18n(:change_ja_en)}\033[0m") if mode == :en2ja
     mode = :ja2en
     puts("-" * IO.console_size[1])
     next
@@ -71,7 +94,7 @@ loop do
 
   next if input.eql?("")
 
-  break if input.eql?(":q")
+  break if [":q", ":quit", ":exit"].include?(input)
 
   puts("\033[32m#{modes[mode][1]}\033[1;32m#{TTTrans.translate(token, api_key, user_id, input, mode)}\033[0m")
   puts("-" * IO.console_size[1])

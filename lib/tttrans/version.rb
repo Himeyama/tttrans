@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module TTTrans
-  VERSION = "0.2.2"
+  VERSION = "24.03.31"
 end
